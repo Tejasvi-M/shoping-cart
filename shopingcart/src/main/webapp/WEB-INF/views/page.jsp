@@ -29,7 +29,8 @@ window.contextRoot='${contextRoot}'
 </script>
 
 <!-- Bootstrap core CSS -->
-<link href="${css}/bootstrap.min.css" rel="stylesheet">
+<link href=" ${css}/bootstrap-readable-theme.css" rel="stylesheet" type="text/css">
+<link href=" ${css}/bootstrap.min.css" rel="stylesheet" type="text/css">
 <!-- data table Style sheet -->
 <link href="${css}/dataTables.bootstrap4.css" rel="stylesheet">
 
@@ -50,26 +51,31 @@ window.contextRoot='${contextRoot}'
 		<%@include file="home.jsp"%>
 	</c:if>
 
-	<c:if test="${clickAbout == true}">
-		<%@include file="about.jsp"%>
-	</c:if>
 
-	<c:if test="${clickContact == true}">
-		<%@ include file="contact.jsp"%>
-	</c:if>
-	
+
 		<c:if test="${clickAllProducts == true or clickCategoryProducts==true}">
 		<%@ include file="listProducts.jsp"%>
+	</c:if>
+	
+	
+	<c:if test="${userClickShowProduct == true}">
+		<%@ include file="singleProduct.jsp"%>
+	</c:if>
+	<!-- Load manage product page for admin purpose -->
+	<c:if test="${userClickManageProducts == true}">
+		<%@ include file="manageProducts.jsp"%>
 	</c:if>
 	
 	</div>
 
 	<!-- Footer -->
-	<%@ include file="./shared/footer.jsp"%>
-	<!-- jquery -->
-	<script src="${js}/jquery.js"></script>
 
+	<!-- jquery -->
+		
+	<script src="${js}/jquery.js"></script>
+	<script src="${js}/jquery.min.js"></script>
 	<!-- Bootstrap core JavaScript -->
+	<script src="${js}/bootstrap.js"></script>
 	<script src="${js}/bootstrap.min.js"></script>
 	
 	
@@ -77,6 +83,8 @@ window.contextRoot='${contextRoot}'
 	<script src="${js}/jquery.dataTables.js"></script>
 	<!-- javascript file for data table -->
 	<script src="${js}/dataTables.bootstrap4.js"></script>
+	<!-- bootbox for alert,confirm etc -->
+	<script src="${js}/bootbox.min.js"></script>
 	<!-- Active menu highlight javascript -->
 	<script src="${js}/menuhighlight.js"></script>
 	</div>

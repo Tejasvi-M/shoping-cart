@@ -17,11 +17,11 @@ body {
 
 @media (min-width: 992px) {
   body {
-    padding-top: 56px;
+    padding-top: 75px;
   }
 }
 footer{
-	height:5px;
+	height:2px;
 	margin:0;
 
 }
@@ -30,8 +30,9 @@ footer{
 	padding:0;
 	margin:0;
 	min-width:100%;
-	position:fixed;
-	bottom:0;	
+	position:absolute;
+	bottom:0;
+	
 }
 
 .wrapper{
@@ -41,6 +42,9 @@ footer{
 }
 
 .content{
+position:relative;
+min-height:100%;
+padding-top:0px;
 padding-bottom:60px;
 }
 
@@ -76,4 +80,16 @@ padding-bottom:60px;
 .dataTableImg{
 	height:100px;
 	width:100px;
+}
+
+.tlength{
+	padding-bottom:0px;
+	margin-bottom:5px;
+	
+}
+
+.help-block
+{
+	
+	color:red;
 }

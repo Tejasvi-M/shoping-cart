@@ -6,14 +6,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tejapps.shopingcart.exception.ProductNotFoundException;
 import com.tejapps.shoppingcartbackend.dao.CategoryDAO;
+import com.tejapps.shoppingcartbackend.dao.ProductDAO;
 import com.tejapps.shoppingcartbackend.dto.Category;
+import com.tejapps.shoppingcartbackend.dto.Product;
 
 @Controller
 public class PageController {
 
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	@Autowired 
+	private ProductDAO productDAO;
 	
 	@RequestMapping(value = { "/", "/home", "/index" })
 	public ModelAndView index() {
@@ -65,4 +71,20 @@ public class PageController {
 		return mv;
 	}
 
+	@RequestMapping(value="/show/{id}/product")
+	public ModelAndView showSingleProduct(@PathVariable int id) throws ProductNotFoundException
+	{
+		ModelAndView mv=new ModelAndView("page");
+		Product product= productDAO.get(id);
+		if(product==null) {
+			throw new ProductNotFoundException();
+		}
+		product.setViews(product.getViews()+1);
+		productDAO.update(product);
+		mv.addObject("title",product.getName());
+		mv.addObject("product",product);
+		mv.addObject("userClickShowProduct",true);
+		
+		return mv;
+	}
 }

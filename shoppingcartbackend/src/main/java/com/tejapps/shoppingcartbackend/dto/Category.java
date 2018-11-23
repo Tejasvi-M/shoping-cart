@@ -26,7 +26,7 @@ public class Category implements Serializable {
 	}
 	//Shopping details database entry fields
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String description;

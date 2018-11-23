@@ -23,9 +23,17 @@ public class JasonDataController {
 	@RequestMapping("/all/products")
 	@ResponseBody
 	public List<Product> getAllProducts(){
-		System.out.println(productDAO.listActiveProducts());
+		
 		return productDAO.listActiveProducts();
 	}
+	
+	@RequestMapping("/admin/all/products")
+	@ResponseBody
+	public List<Product> getAllProductsForAdmin(){
+		
+		return productDAO.list();
+	}
+	
 	
 	@RequestMapping("/category/{id}/products")
 	@ResponseBody

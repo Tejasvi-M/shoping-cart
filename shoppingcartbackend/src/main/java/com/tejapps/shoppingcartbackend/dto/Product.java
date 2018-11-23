@@ -9,8 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,14 +30,18 @@ public class Product implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String code;
-
+	@NotBlank(message="Please enter the name")
 	private String name;
+	@NotBlank(message="Please enter the brand")
 	private String brand;
+	@JsonIgnore
+	@NotBlank(message="Please describe the product")
 	private String description;
 	@Column(name = "unit_price")
+	@Min(value=1,message="Price should be greater than 0")
 	private double unitPrice;
 	private int quantity;
 	@Column(name = "is_active")
@@ -47,6 +55,22 @@ public class Product implements Serializable{
 	private int purchases;
 	private int views;
 
+	
+	//Transient field to hold the binary file i.e image to upload
+	
+	@Transient
+	public MultipartFile file;
+	
+	public MultipartFile getFile()
+	{
+		return file;
+	}
+	
+	public void setFile(MultipartFile file) {
+		this.file=file;
+	}
+	
+	
 	// constructor to initialize product code using random number
 
 	public Product() {
