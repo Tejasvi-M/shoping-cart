@@ -77,7 +77,16 @@ public class CartLineDAOImpl implements CartLineDAO {
 					.setParameter("productId",productId).getSingleResult();
 		}catch(Exception e) {return null;}
 	}
-
+	
+	@Override
+	public boolean delete(CartLine cartLine) {
+		
+		try {
+				sessionFactory.getCurrentSession().delete(cartLine);
+				return true;
+		}catch(Exception e) {return false;}
+	}
+	
 	@Override
 	public boolean updateCart(Cart cart) {
 			try {

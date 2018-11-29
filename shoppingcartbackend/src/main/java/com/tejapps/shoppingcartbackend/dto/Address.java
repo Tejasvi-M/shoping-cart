@@ -28,6 +28,8 @@ public class Address implements Serializable {
 	private String addressLineTwo;
 	@NotBlank(message="Please enter city")
 	private String city;
+	@NotBlank(message="Please enter state")
+	private String state;
 	@NotBlank(message="Please enter country")
 	private String country;
 	@Column(name="postal_code")
@@ -51,6 +53,12 @@ public class Address implements Serializable {
 	
 	public int getId() {
 		return id;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	public void setId(int id) {
 		this.id = id;

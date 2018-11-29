@@ -1,3 +1,5 @@
+
+
 <div class="container page-display-size">
 
 <div class="row">
@@ -70,3 +72,4 @@ window.categoryId='${category.id}';
 
 </div>
 </div>
+

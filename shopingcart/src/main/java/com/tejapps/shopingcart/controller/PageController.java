@@ -1,9 +1,16 @@
 package com.tejapps.shopingcart.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tejapps.shopingcart.exception.ProductNotFoundException;
@@ -20,12 +27,14 @@ public class PageController {
 	
 	@Autowired 
 	private ProductDAO productDAO;
-	
+	private Product product;
 	@RequestMapping(value = { "/", "/home", "/index" })
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "Home");
 		mv.addObject("categories",categoryDAO.list());
+		mv.addObject("products",productDAO.list());
+		mv.addObject("product",product);
 		mv.addObject("clickHome",true);
 		return mv;
 	}
@@ -86,5 +95,41 @@ public class PageController {
 		mv.addObject("userClickShowProduct",true);
 		
 		return mv;
+	}
+	
+	@RequestMapping(value = { "/login" })
+	public ModelAndView login(@RequestParam(name="error", required=false)String error,
+			@RequestParam(name="logout", required=false)String logout){
+		ModelAndView mv = new ModelAndView("login");
+		if(error!=null) {
+			mv.addObject("message","Invalid Username and password");
+		}
+		
+		if(logout!=null) {
+			mv.addObject("logout","Successfull Logout");
+		}
+		
+		mv.addObject("title", "login");
+		return mv;
+	}
+
+	@RequestMapping(value = { "/access-denied" })
+	public ModelAndView accessDenied() {
+		ModelAndView mv = new ModelAndView("error");
+		mv.addObject("title", "403-Access Denied");
+		mv.addObject("errorTitle","");
+		mv.addObject("errorDescription","Unauthorized visit");
+		return mv;
+	}
+	
+	@RequestMapping(value="/perform-logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if(authentication!=null) {
+			new SecurityContextLogoutHandler().logout(request,response,authentication);
+		}
+		
+		return "redirect:/login?logout";
 	}
 }

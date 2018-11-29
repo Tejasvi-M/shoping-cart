@@ -12,7 +12,7 @@ first_name varchar(50),
 last_name varchar(50),
 role varchar(50),
 enabled boolean,
-password varchar(50),
+password varchar(60),
 email varchar(50),
 contact_number varchar(15),
 constraint pk_user_id primary key(id)

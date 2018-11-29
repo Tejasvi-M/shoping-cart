@@ -11,12 +11,12 @@
 			</div>
 		</c:if>
 		<div class="col-md-offset-2 col-md-8">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
+			<div class="card card-primary">
+				<div class="card-header">
 					<h4>Product Management</h4>
 				</div>
 
-				<div class="panel-body">
+				<div class="card-block">
 					<!--  form elements -->
 					<sf:form class="form-horizontal" modelAttribute="product"
 						action="${contextRoot}/manage/products" method="POST"
@@ -122,7 +122,7 @@
 
 		</div>
 	</div>
-
+	<br/>
 	<div class="row">
 		<div class="col-xs-12">
 			<h3>Available Products</h3>
@@ -130,7 +130,7 @@
 
 		<div class="col-xs-12">
 			<div style="overflow: auto">
-
+					<br>
 				<table id="productsTable" class="table table-striped table-bordered">
 					<thead>
 						<tr>

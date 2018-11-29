@@ -13,12 +13,27 @@ $(function() {
 	case 'Manage Products':
 		$('#manageproducts').addClass('active');
 		break;
+		
+	case 'User Cart':
+		$('#userCart').addClass('active');
+		break;	
 
 	default:
 		$('#home').addClass('active');
 		break;
 	}
 
+	var token=$('meta[name="_csrf"]').attr('content');
+	var header=$('meta[name="_csrf_header"]').attr('content');
+	
+	if(token.length>0 && header.length>0)
+	{
+	$(document).ajaxSend(function(e,xhr,options){
+		
+		xhr.setRequestHeader(header,token);
+	});
+}
+	
 	// code for jquery data table
 
 	// jquery to fetch table
@@ -84,20 +99,30 @@ $(function() {
 											+ window.contextRoot
 											+ '/show/'
 											+ data
-											+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;';
+											+ '/product" class="btn btn-primary"><span class="fa fa-eye"></span></a> &#160;';
+									
+									if(userRole=='ADMIN'){
+										
+										str += '<a href="'
+											+ window.contextRoot
+											+'/manage/'
+											+ data
+											+ '/product" class="btn btn-warning"><span class="fa fa-cog"></span></a>';
 
+										
+									}
+									else{
 									if (row.quantity < 1) {
-										str += '<a href="javascript:void(0)" class="btn btn-success disabled"><strike><span class="glyphicon glyphicon-shopping-cart"></span></strike></a>';
+										str += '<a href="javascript:void(0)" class="btn btn-success disabled"><strike><span class="fa fa-shopping-cart"></span></strike></a>';
 
 									}
 
 									else {
-										str += '<a href="'
-												+ window.contextRoot
-												+ '/cart/add/'
-												+ data
-												+ '/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
-									}
+											
+											str += '<a href="'+ window.contextRoot+ '/cart/add/'
+												+ data+ '/product" class="btn btn-success"><span class="fa fa-shopping-cart"></span></a>';
+										}	
+								}
 
 									return str;
 
@@ -172,15 +197,18 @@ $(function() {
 								bSortable : false,
 								mRender : function(data, type, row) {
 									var str = '';
+									str+='<label class="switch">'
 									if (data) {
-										str += '<label class="switch"><input type="checkbox" value="'
+										str += '<input type="checkbox" value="'
 												+ row.id
-												+ '" checked="checked"><div class="slider round"></div></label>';
+												+ '" checked="checked">';
 									}
 
 									else {
-										str+='<label class="switch"><input type="checkbox" value="'+row.id+'"><div class="slider round"></div></label>';
+										str+='<input type="checkbox" value="'+row.id+'">';
 									}
+									
+									str+='<div class="slider round"></div></label>'
 									return str;
 								}
 							},
@@ -193,7 +221,7 @@ $(function() {
 											+ window.contextRoot
 											+ '/manage/'
 											+ data
-											+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>&#160;';
+											+ '/product" class="btn btn-primary"><span class="fa fa-cog"></span></a>&#160;';
 									return str;
 								}
 
@@ -212,7 +240,7 @@ $(function() {
 													: 'You want to deactivate the Product?';
 											var checked = this.checked;
 											var checkbox = $(this);
-											debugger;
+											
 											bootbox
 													.confirm({
 														size : 'medium',
@@ -258,4 +286,40 @@ $(function() {
 
 	// .........................................
 
+	$('button[name="refreshCart"]').click(function(){
+		
+		//fetch cart line id
+		var cartLineId=$(this).attr('value');
+		var countElement=$('#count_' + cartLineId);
+		var originalCount= countElement.attr('value');
+		
+		var currentCount=countElement.val();
+		
+		//refresh on when the count has changed
+		
+		if(currentCount!== originalCount){
+			console.log("current count "+currentCount);
+			console.log("original count "+originalCount);
+		}
+		if(currentCount<1 || currentCount>5){
+			//changing the value of current count to original count value if the value exceeds limitation
+			countElement.val(originalCount);
+			
+			bootbox.alert({
+				size: 'medium',
+				title: 'Error',
+				message: 'Cart limit violation'
+			});
+			
+		}
+		
+		else{
+			
+			var updateUrl=window.contextRoot+'/cart/'+cartLineId+'/update?count='+currentCount;
+			window.location.href=updateUrl;
+			
+		}
+		
+	});
+	
 });

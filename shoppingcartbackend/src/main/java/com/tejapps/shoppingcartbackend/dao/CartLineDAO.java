@@ -18,6 +18,8 @@ public interface CartLineDAO {
 	
 	boolean updateCart(Cart cart);
 	
+	boolean delete(CartLine cartLine);
+	
 	public List<CartLine> listAvailable(int cartId);
 	
 	boolean addOrderDetail(OrderDetail orderDetail);
