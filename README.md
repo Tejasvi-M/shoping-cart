@@ -23,6 +23,7 @@ Some screenshots of the application
 https://github.com/Tejasvi-M/shoping-cart/blob/master/Screenshot%20from%202018-12-01%2009-24-16.png
 https://github.com/Tejasvi-M/shoping-cart/blob/master/Screenshot%20from%202018-12-01%2009-24-28.png
 https://github.com/Tejasvi-M/shoping-cart/blob/master/Screenshot%20from%202018-12-01%2009-25-08.png
+https://github.com/Tejasvi-M/shoping-cart/blob/master/Screenshot%20from%202018-12-01%2009-25-45.png
 
 
 
