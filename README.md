@@ -13,9 +13,9 @@ Markup Language : HTML along with CSS
 
 Database : MySQL
 
-Frameworks: Spring-MVC, Hibernate along with apache dbcp2
+Frameworks: Spring, Hibernate along with apache dbcp2
 
-Modules: Spring-Validator, Spring Webflow, Javax-Validation, Spring-Security
+Modules: Spring-MVC, Spring-Validator, Spring Webflow, Javax-Validation, Spring-Security
 
 
 Some screenshots of the application
