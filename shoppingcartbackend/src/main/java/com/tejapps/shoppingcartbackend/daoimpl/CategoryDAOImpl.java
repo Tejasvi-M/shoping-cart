@@ -2,7 +2,6 @@ package com.tejapps.shoppingcartbackend.daoimpl;
 
 import java.util.List;
 
-import org.h2.tools.Server;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
