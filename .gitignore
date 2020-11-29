@@ -26,3 +26,4 @@ hs_err_pid*
 /shoppingcartbackend/target/
 /shoppingcartbackend/src/test/
 /shoppingcartbackend/src/test/java/com/tejapps/shoppingcartbackend/
+**/test/**
